@@ -1,4 +1,11 @@
-import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaTwitter,
+  FaYoutube,
+  FaWhatsapp,
+  FaPhone,
+} from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -52,10 +59,30 @@ export default function Footer() {
           <p>
             Email:{" "}
             <a
-              href="mailto:contact@yo-geezy.com"
+              href="mailto:yogeezyentertainment@gmail.com"
               className="text-purple-400 hover:underline"
             >
-              contact@yo-geezy.com
+              yogeezyentertainment@gmail.com
+            </a>
+          </p>
+          <p>
+            Phone:{" "}
+            <a
+              href="tel:+2348035893993"
+              className="text-purple-400 hover:underline flex items-center justify-center md:justify-end gap-2"
+            >
+              <FaPhone /> +234 8035873993
+            </a>
+          </p>
+          <p>
+            WhatsApp:{" "}
+            <a
+              href="https://wa.me/2348035873993"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-400 hover:underline flex items-center justify-center md:justify-end gap-2"
+            >
+              <FaWhatsapp /> Chat Now
             </a>
           </p>
           <p>Address: 123 Music Street, Lagos, Nigeria</p>

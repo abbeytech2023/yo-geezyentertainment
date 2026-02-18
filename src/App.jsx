@@ -1,15 +1,23 @@
 import { Routes, Route } from "react-router-dom";
-import LaundryLanding from "./components/Laundry";
 import Hero from "./components/Hero";
 import MusicSection from "./components/MusicSection";
 import Home from "./components/Home";
+import Navigation from "./components/Navigation";
+import SupportPage from "./components/Support";
+import Blogs from "./components/Blogs";
+import Skits from "./components/Skits";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/wash" element={<LaundryLanding />} />
-    </Routes>
+    <>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/skits" element={<Skits />} />
+        <Route path="/support" element={<SupportPage />} />
+      </Routes>
+    </>
   );
 }
 
