@@ -6,6 +6,8 @@ import Navigation from "./components/Navigation";
 import SupportPage from "./components/Support";
 import Blogs from "./components/Blogs";
 import Skits from "./components/Skits";
+import Footer from "./components/Footer";
+import PWAInstall from "./components/PwaInstall";
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="/skits" element={<Skits />} />
         <Route path="/support" element={<SupportPage />} />
       </Routes>
+      <PWAInstall />
+      <Footer />
     </>
   );
 }

@@ -1,4 +1,3 @@
-import Footer from "./Footer";
 import Hero from "./Hero";
 import MusicSection from "./MusicSection";
 
@@ -9,7 +8,6 @@ export default function Home() {
     <div>
       <Hero />
       <MusicSection />
-      <Footer />
     </div>
   );
 }

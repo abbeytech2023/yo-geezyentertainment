@@ -5,93 +5,114 @@ import {
   FaYoutube,
   FaWhatsapp,
   FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-black relative py-12 px-6 text-white">
-      {/* Gradient Glow */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-zinc-900/40 to-black pointer-events-none"></div>
+    <footer className="relative bg-zinc-950 text-white pt-16 pb-8 px-6 overflow-hidden">
+      {/* Subtle Gradient Top Border */}
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-purple-600 via-pink-500 to-red-500"></div>
 
-      <div className="relative max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
+        {/* Brand Section */}
+        <div>
+          <h2 className="text-2xl font-bold mb-4 tracking-wide">
+            Yo Geezy Entertainment
+          </h2>
+          <p className="text-zinc-400 leading-relaxed">
+            Bringing rhythm, creativity, and entertainment to life. Stay
+            connected with us across all platforms.
+          </p>
+        </div>
+
         {/* Social Media */}
-        <div className="flex flex-col items-center md:items-start gap-4">
-          <h3 className="font-semibold text-lg mb-2">Follow Yo Geezy</h3>
-          <div className="flex gap-4 text-white/80 hover:text-white">
-            <a
-              href="https://instagram.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-pink-500 transition"
-            >
-              <FaInstagram size={32} />
-            </a>
-            <a
-              href="https://facebook.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 transition"
-            >
-              <FaFacebookF size={32} />
-            </a>
-            <a
-              href="https://twitter.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-400 transition"
-            >
-              <FaTwitter size={32} />
-            </a>
-            <a
-              href="https://youtube.com/yourchannel"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-red-600 transition"
-            >
-              <FaYoutube size={32} />
-            </a>
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
+          <div className="flex gap-4">
+            {[
+              {
+                icon: <FaInstagram size={20} />,
+                link: "https://instagram.com/yogeezyworld",
+                hover: "hover:bg-pink-600",
+              },
+              {
+                icon: <FaFacebookF size={20} />,
+                link: "https://facebook.com/yogeezyworld",
+                hover: "hover:bg-blue-600",
+              },
+              {
+                icon: <FaTwitter size={20} />,
+                link: "https://twitter.com/yogeezyworld",
+                hover: "hover:bg-sky-500",
+              },
+              {
+                icon: <FaYoutube size={20} />,
+                link: "https://youtube.com/yogeezyworld",
+                hover: "hover:bg-red-600",
+              },
+            ].map((item, index) => (
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-10 h-10 flex items-center justify-center rounded-full bg-zinc-800 transition-all duration-300 transform hover:scale-110 ${item.hover}`}
+              >
+                {item.icon}
+              </a>
+            ))}
           </div>
         </div>
 
         {/* Contact */}
-        <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
-          <h3 className="font-semibold text-lg mb-2">Contact</h3>
-          <p>
-            Email:{" "}
-            <a
-              href="mailto:yogeezyentertainment@gmail.com"
-              className="text-purple-400 hover:underline"
-            >
-              yogeezyentertainment@gmail.com
-            </a>
-          </p>
-          <p>
-            Phone:{" "}
-            <a
-              href="tel:+2348035893993"
-              className="text-purple-400 hover:underline flex items-center justify-center md:justify-end gap-2"
-            >
-              <FaPhone /> +234 8035873993
-            </a>
-          </p>
-          <p>
-            WhatsApp:{" "}
-            <a
-              href="https://wa.me/2348035873993"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-green-400 hover:underline flex items-center justify-center md:justify-end gap-2"
-            >
-              <FaWhatsapp /> Chat Now
-            </a>
-          </p>
-          <p>Address: 123 Music Street, Lagos, Nigeria</p>
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Contact</h3>
+          <div className="space-y-3 text-zinc-400">
+            <p className="flex items-center gap-3">
+              <FaEnvelope className="text-purple-400" />
+              <a
+                href="mailto:yogeezyentertainment@gmail.com"
+                className="hover:text-white transition"
+              >
+                yogeezyentertainment@gmail.com
+              </a>
+            </p>
+
+            <p className="flex items-center gap-3">
+              <FaPhone className="text-purple-400" />
+              <a
+                href="tel:+2348035873993"
+                className="hover:text-white transition"
+              >
+                +234 8035873993
+              </a>
+            </p>
+
+            <p className="flex items-center gap-3">
+              <FaWhatsapp className="text-green-500" />
+              <a
+                href="https://wa.me/2348035873993"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition"
+              >
+                Chat on WhatsApp
+              </a>
+            </p>
+
+            <p className="flex items-center gap-3">
+              <FaMapMarkerAlt className="text-purple-400" />
+              Lagos, Nigeria
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Text */}
-      <div className="mt-12 text-center text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} Yo Geezy Entertainment. All rights
+      {/* Divider */}
+      <div className="border-t border-zinc-800 mt-12 pt-6 text-center text-zinc-500 text-sm">
+        © {new Date().getFullYear()} Yo Geezy Entertainment. All rights
         reserved.
       </div>
     </footer>
