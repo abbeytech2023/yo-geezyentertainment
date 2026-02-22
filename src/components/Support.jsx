@@ -5,9 +5,9 @@ export default function SupportPage() {
   const [copied, setCopied] = useState(false);
 
   const accountDetails = {
-    accountName: "YO GEEZY MUSIC",
+    accountName: "YO GEEZY ENTERTAINMENT",
     bankName: "Access Bank",
-    accountNumber: "0123456789",
+    accountNumber: "1770558728",
   };
 
   const copyAccountNumber = () => {

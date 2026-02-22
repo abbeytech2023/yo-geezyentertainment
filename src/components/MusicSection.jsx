@@ -110,3 +110,43 @@ export default function MusicSlider() {
     </section>
   );
 }
+
+// import MediaEmbedSlider from "./MediaSlider";
+
+// export default function MediaPage() {
+//   const videos = [
+//     {
+//       id: 1,
+//       title: "Burna Boy - Last Last",
+//       videoId: "421w1j87fEM",
+//     },
+//     {
+//       id: 2,
+//       title: "Rema - Calm Down",
+//       videoId: "isFxq4aH8cI",
+//     },
+//   ];
+
+//   const music = [
+//     {
+//       id: 1,
+//       title: "G2BUK FT VYBER",
+//       appleEmbedUrl:
+//         "https://embed.music.apple.com/ng/song/middle-finger-feat-vyber/1871309793",
+//       // embedUrl: "https://embed.music.apple.com/us/album/love-damini/1623677591",
+//     },
+//     {
+//       id: 2,
+//       title: "Rema - Rave & Roses",
+//       embedUrl: "https://embed.music.apple.com/us/album/rave-roses/1611901803",
+//     },
+//   ];
+
+//   return (
+//     <div className="bg-black min-h-screen px-4 md:px-10">
+//       <MediaEmbedSlider title="🎬 Videos" items={videos} type="youtube" />
+
+//       <MediaEmbedSlider title="🎵 Music" items={music} type="apple" />
+//     </div>
+//   );
+// }

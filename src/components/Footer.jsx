@@ -49,7 +49,7 @@ export default function Footer() {
               },
               {
                 icon: <FaYoutube size={20} />,
-                link: "https://youtube.com/yogeezyworld",
+                link: "https://youtube.com/@yogeezyworld",
                 hover: "hover:bg-red-600",
               },
             ].map((item, index) => (
