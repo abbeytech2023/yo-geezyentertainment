@@ -7,11 +7,12 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    // { name: "Music", href: "/#music" },
-    // { name: "Music Videos", href: "#videos" },
     { name: "Skits", href: "/skits" },
     { name: "Blogs", href: "/blogs" },
     { name: "Support", href: "/support" },
+    { name: "Admin-Dashboard", href: "/admin" },
+    { name: "Login", href: "/login" },
+    { name: "Signup", href: "signup" },
   ];
 
   return (

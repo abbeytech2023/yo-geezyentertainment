@@ -11,7 +11,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       manifest: {
         name: "Yo Geezy Entertainment",
-        short_name: "Yo Gizzy",
+        short_name: "Yo Geezy",
         start_url: "/",
         display: "standalone",
         background_color: "#ffffff",

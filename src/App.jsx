@@ -1,13 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Hero from "./components/Hero";
-import MusicSection from "./components/MusicSection";
-import Home from "./components/Home";
+
+import Home from "./pages/Home";
 import Navigation from "./components/Navigation";
-import SupportPage from "./components/Support";
-import Blogs from "./components/Blogs";
-import Skits from "./components/Skits";
+import SupportPage from "./pages/Support";
+import Blogs from "./pages/Blogs";
+import Skits from "./pages/Skits";
 import Footer from "./components/Footer";
 import PWAInstall from "./components/PwaInstall";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import AdminDashboard from "./pages/AdminDashboard";
 
 export default function App() {
   return (
@@ -17,7 +19,10 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/skits" element={<Skits />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/support" element={<SupportPage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
       <PWAInstall />
       <Footer />

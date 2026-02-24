@@ -1,5 +1,5 @@
-import Hero from "./Hero";
-import MusicSection from "./MusicSection";
+import Hero from "../components/Hero";
+import MusicSection from "../components/MusicSection";
 
 import React from "react";
 
