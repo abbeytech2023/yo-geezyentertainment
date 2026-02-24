@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { signUp } from "../services/auth";
 
 export default function Signup() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
+    phone: "",
   });
+
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,6 +19,15 @@ export default function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Confirm password validation
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords needs to match!");
+      return;
+    }
+
+    setError(""); // clear any previous error
+    signUp({ form });
     console.log("Signup Data:", form);
   };
 
@@ -46,6 +60,16 @@ export default function Signup() {
           />
 
           <input
+            type="tel"
+            name="phone"
+            placeholder="Mobile phone"
+            value={form.phone}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
+          />
+
+          <input
             type="password"
             name="password"
             placeholder="Password"
@@ -54,6 +78,20 @@ export default function Signup() {
             required
             className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
           />
+
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
+          />
+
+          {error && (
+            <p className="text-red-500 text-[0.95rem] text-center">{error}</p>
+          )}
 
           <button
             type="submit"

@@ -65,10 +65,11 @@ export default function Admin() {
   return (
     <div className="mt-12 min-h-screen bg-black text-white flex flex-col md:flex-row">
       {/* MOBILE TOP BAR */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-zinc-900 border-b border-zinc-800">
+      <div className="md:hidden flex items-center  justify-between p-4 bg-zinc-900 border-b border-zinc-800">
         <h2 className="text-xl font-bold">Admin-Dashboard</h2>
-        <button onClick={() => setSidebarOpen(true)}>
-          <FaBars size={20} />
+        <button className="text-2xl" onClick={() => setSidebarOpen(true)}>
+          {/* <FaBars size={20} /> */}
+          {sidebarOpen ? <h2>close</h2> : <h2>open</h2>}
         </button>
       </div>
 
