@@ -1,13 +1,9 @@
 import supabase from "../lib/supabaseClients";
 
 // Sign up function
-export async function signUp({
-  email,
-  password,
-  fullName,
+export async function signUp({ fullName, email, password, phone }) {
+  console.log(email, password);
 
-  phone,
-}) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -54,12 +50,27 @@ export async function signUp({
   return data;
 }
 
+export async function getCurrentUser() {
+  const { data: session } = await supabase.auth.getSession();
+
+  if (!session.session) return null;
+
+  const { data, error } = await supabase.auth.getUser();
+
+  console.log(data);
+
+  return data?.user;
+}
+
 // Login function
-export async function login(email, password) {
+export async function login({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
+
+  if (error) throw new Error(error.message);
+  console.log(data);
 
   return { data, error };
 }
@@ -67,5 +78,15 @@ export async function login(email, password) {
 // Logout function
 export async function logout() {
   const { error } = await supabase.auth.signOut();
-  return { error };
+  if (error) throw new Error(error.message);
+}
+
+export async function checkIfAdmin() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return false;
+
+  return user.email === "yogeezyentertainment@gmail.com";
 }

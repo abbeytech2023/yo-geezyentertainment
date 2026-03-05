@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="relative z-10 text-center max-w-4xl">
         {/* Small Label */}
         <p className="uppercase tracking-widest text-sm text-purple-400 mb-4">
-          Official Artist Website
+          Official Website for yo geezy entertainment
         </p>
 
         {/* Main Heading */}

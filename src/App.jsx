@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
 import Navigation from "./components/Navigation";
 import SupportPage from "./pages/Support";
@@ -11,20 +11,57 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AdminDashboard from "./pages/AdminDashboard";
 
+// Context
+
+import { useAuthContext } from "./hooks/useAuthContext";
+import { useEffect } from "react";
+import { Spinner } from "./components/Spinner";
+
 export default function App() {
+  const { authIsReady } = useAuthContext();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/skits" element={<Skits />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/support" element={<SupportPage />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-      </Routes>
+      {!authIsReady && <Spinner />}
+      {authIsReady && (
+        <div>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/skits" element={<Skits />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/support" element={<SupportPage />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Routes>
+        </div>
+      )}
       <PWAInstall />
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+            color: "#144c6f",
+          },
+          error: {
+            duration: 2000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "#eaf2f4",
+            color: "black",
+          },
+        }}
+      />
       <Footer />
     </>
   );

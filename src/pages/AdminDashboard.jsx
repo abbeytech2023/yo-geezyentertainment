@@ -1,17 +1,13 @@
 import { useState } from "react";
-import {
-  FaMusic,
-  FaVideo,
-  FaNewspaper,
-  FaTachometerAlt,
-  FaTrash,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import SideBar from "../components/SideBar";
+import { FaTrash, FaBars } from "react-icons/fa";
+import UserList from "../components/UserList";
+import { useUsers } from "../hooks/useUsers";
 
 export default function Admin() {
   const [active, setActive] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { users } = useUsers();
 
   // BLOGS
   const [blogs, setBlogs] = useState([]);
@@ -67,7 +63,10 @@ export default function Admin() {
       {/* MOBILE TOP BAR */}
       <div className="md:hidden flex items-center  justify-between p-4 bg-zinc-900 border-b border-zinc-800">
         <h2 className="text-xl font-bold">Admin-Dashboard</h2>
-        <button className="text-2xl" onClick={() => setSidebarOpen(true)}>
+        <button
+          className="text-2xl cursor-pointer hover:text-pink-600"
+          onClick={() => setSidebarOpen(true)}
+        >
           {/* <FaBars size={20} /> */}
           {sidebarOpen ? <h2>close</h2> : <h2>open</h2>}
         </button>
@@ -82,44 +81,12 @@ export default function Admin() {
       )}
 
       {/* SIDEBAR */}
-      <div
-        className={`fixed md:static top-0 left-0 h-full w-64 bg-zinc-900 p-6 border-r border-zinc-800 z-50 transform transition-transform duration-300
-        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
-        md:translate-x-0`}
-      >
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold">Admin Panel</h2>
-          <button className="md:hidden" onClick={() => setSidebarOpen(false)}>
-            <FaTimes />
-          </button>
-        </div>
-
-        <div className="space-y-4">
-          {[
-            {
-              name: "dashboard",
-              icon: <FaTachometerAlt />,
-              label: "Dashboard",
-            },
-            { name: "blogs", icon: <FaNewspaper />, label: "Blogs" },
-            { name: "music", icon: <FaMusic />, label: "Music" },
-            { name: "videos", icon: <FaVideo />, label: "Videos" },
-          ].map((item) => (
-            <button
-              key={item.name}
-              onClick={() => {
-                setActive(item.name);
-                setSidebarOpen(false);
-              }}
-              className={`flex items-center gap-3 w-full text-left p-2 rounded hover:bg-zinc-800 transition ${
-                active === item.name ? "bg-zinc-800" : ""
-              }`}
-            >
-              {item.icon} {item.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      <SideBar
+        active={active}
+        setActive={setActive}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
       {/* MAIN CONTENT */}
       <div className="flex-1 p-4 sm:p-6 md:p-10 overflow-x-hidden">
@@ -134,6 +101,7 @@ export default function Admin() {
               <StatCard title="Blogs" value={blogs.length} />
               <StatCard title="Music" value={music.length} />
               <StatCard title="Videos" value={videos.length} />
+              <StatCard title="Users" value={users.length} />
               <StatCard
                 title="Total Content"
                 value={blogs.length + music.length + videos.length}
@@ -233,6 +201,8 @@ export default function Admin() {
             />
           </Section>
         )}
+
+        {active === "users" && <UserList />}
       </div>
     </div>
   );
