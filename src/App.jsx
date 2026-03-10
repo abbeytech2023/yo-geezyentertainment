@@ -16,18 +16,17 @@ import AdminDashboard from "./pages/AdminDashboard";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useEffect } from "react";
 import { Spinner } from "./components/Spinner";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   const { authIsReady } = useAuthContext();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   return (
     <>
       {!authIsReady && <Spinner />}
       {authIsReady && (
         <div>
+          <ScrollToTop />
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />

@@ -44,6 +44,12 @@ export default function Hero() {
           >
             🎬 Watch Videos
           </a>
+          <a
+            href="/skits"
+            className="px-8 py-3 rounded-full border border-white/20 hover:border-purple-400 transition duration-300"
+          >
+            🎬 Watch Skits
+          </a>
         </div>
       </div>
     </section>

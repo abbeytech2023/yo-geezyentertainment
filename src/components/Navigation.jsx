@@ -42,7 +42,7 @@ export default function Navbar() {
         {/* Desktop */}
         <ul className="hidden md:flex gap-8 text-sm cursor-pointer uppercase tracking-wide">
           {filteredLinks.map((link) => (
-            <li key={link.name} className="cursor-pointer">
+            <li key={link.name} className="cursor-pointer uppercase">
               {link.action ? (
                 <button
                   onClick={link.action}
@@ -82,7 +82,7 @@ export default function Navbar() {
                       link.action();
                       setIsOpen(false);
                     }}
-                    className="hover:text-red-500 transition"
+                    className="hover:text-red-500 transition uppercase"
                   >
                     {link.name}
                   </button>
