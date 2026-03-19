@@ -18,8 +18,8 @@ export default function MusicSlider({ songs }) {
         <h2 className="text-3xl font-bold mb-8">🎵 Music</h2>
 
         <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-xl">
-          <h3 className="text-xl font-semibold mb-4">{currentSong.title}</h3>
-          <AppleMusicEmbed embedUrl={currentSong.appleEmbedUrl} />
+          <h3 className="text-xl font-semibold mb-4">{currentSong?.title}</h3>
+          <AppleMusicEmbed embedUrl={currentSong?.links} />
 
           {/* Arrows */}
           <button
@@ -47,6 +47,23 @@ export default function MusicSlider({ songs }) {
               />
             ))}
           </div>
+        </div>
+
+        {/* VIDEO TITLES LIST */}
+        <div className="mt-8 flex flex-wrap cursor-pointer flex-col justify-center gap-3">
+          {songs.map((song, i) => (
+            <button
+              key={song.id || i}
+              onClick={() => setCurrentIndex(i)}
+              className={`px-4 py-2 rounded-full text-sm transition ${
+                i === currentIndex
+                  ? "bg-pink-600 text-white font-semibold shadow-lg"
+                  : "bg-white/10 text-white/70 hover:bg-white/20"
+              }`}
+            >
+              {song.title}
+            </button>
+          ))}
         </div>
       </div>
     </section>

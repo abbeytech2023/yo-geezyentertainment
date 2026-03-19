@@ -91,7 +91,6 @@ export async function checkIfAdmin() {
   console.log(user.email);
 
   const isAdmin = user.email === "yogeezyentertainment@gmail.com";
-  console.log(isAdmin);
 
   return isAdmin;
 }

@@ -3,6 +3,10 @@ import SideBar from "../components/SideBar";
 import { FaTrash, FaBars } from "react-icons/fa";
 import UserList from "../components/UserList";
 import { useUsers } from "../hooks/useUsers";
+import { StatCard } from "../components/StatCard";
+import AdminMusicSections from "../components/AdminMusicSections";
+import AdminBlogsSection from "../components/AdminBlogsSection";
+import AdminVideosSection from "../components/AdminVideosSection";
 
 export default function Admin() {
   const [active, setActive] = useState("dashboard");
@@ -40,6 +44,7 @@ export default function Admin() {
   const addBlog = (e) => {
     e.preventDefault();
     setBlogs([{ id: Date.now(), ...blogForm }, ...blogs]);
+
     setBlogForm({ title: "", content: "" });
     setBlogFormOpen(false);
   };
@@ -109,136 +114,36 @@ export default function Admin() {
             </div>
           </>
         )}
-
         {/* BLOGS */}
-        {active === "blogs" && (
-          <Section
-            title="Blogs"
-            formOpen={blogFormOpen}
-            toggleForm={() => setBlogFormOpen(!blogFormOpen)}
-            onSubmit={addBlog}
-          >
-            <input
-              type="text"
-              placeholder="Blog Title"
-              value={blogForm.title}
-              onChange={(e) =>
-                setBlogForm({ ...blogForm, title: e.target.value })
-              }
-              className="w-full p-3 bg-zinc-800 rounded"
-              required
-            />
-            <textarea
-              placeholder="Blog Content"
-              value={blogForm.content}
-              onChange={(e) =>
-                setBlogForm({ ...blogForm, content: e.target.value })
-              }
-              className="w-full p-3 bg-zinc-800 rounded"
-              required
-            />
-          </Section>
-        )}
-
+        <AdminBlogsSection
+          active={active}
+          blogForm={blogForm}
+          blogFormOpen={blogFormOpen}
+          setBlogFormOpen={setBlogFormOpen}
+          setBlogForm={setBlogForm}
+          addBlog={addBlog}
+        />
         {/* MUSIC */}
-        {active === "music" && (
-          <Section
-            title="Music"
-            formOpen={musicFormOpen}
-            toggleForm={() => setMusicFormOpen(!musicFormOpen)}
-            onSubmit={addMusic}
-          >
-            <input
-              type="text"
-              placeholder="Music Title"
-              value={musicForm.title}
-              onChange={(e) =>
-                setMusicForm({ ...musicForm, title: e.target.value })
-              }
-              className="w-full p-3 bg-zinc-800 rounded"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Audiomack Link"
-              value={musicForm.link}
-              onChange={(e) =>
-                setMusicForm({ ...musicForm, link: e.target.value })
-              }
-              className="w-full p-3 bg-zinc-800 rounded"
-              required
-            />
-          </Section>
-        )}
+        <AdminMusicSections
+          active={active}
+          musicForm={musicForm}
+          addMusic={addMusic}
+          musicFormOpen={musicFormOpen}
+          setMusicFormOpen={setMusicFormOpen}
+        />
 
         {/* VIDEOS */}
-        {active === "videos" && (
-          <Section
-            title="Videos"
-            formOpen={videoFormOpen}
-            toggleForm={() => setVideoFormOpen(!videoFormOpen)}
-            onSubmit={addVideo}
-          >
-            <input
-              type="text"
-              placeholder="Video Title"
-              value={videoForm.title}
-              onChange={(e) =>
-                setVideoForm({ ...videoForm, title: e.target.value })
-              }
-              className="w-full p-3 bg-zinc-800 rounded"
-              required
-            />
-            <input
-              type="text"
-              placeholder="YouTube Link"
-              value={videoForm.link}
-              onChange={(e) =>
-                setVideoForm({ ...videoForm, link: e.target.value })
-              }
-              className="w-full p-3 bg-zinc-800 rounded"
-              required
-            />
-          </Section>
-        )}
-
+        <AdminVideosSection
+          active={active}
+          videoForm={videoForm}
+          videoFormOpen={videoFormOpen}
+          setVideoFormOpen={setVideoFormOpen}
+          addVideo={addVideo}
+          setVideoForm={setVideoForm}
+        />
+        {/* USERS LIST */}
         {active === "users" && <UserList />}
       </div>
     </div>
-  );
-}
-
-/* Small Reusable Components */
-
-function StatCard({ title, value }) {
-  return (
-    <div className="bg-zinc-900 p-6 rounded-lg">
-      <p className="text-gray-400">{title}</p>
-      <h2 className="text-2xl font-bold break-words">{value}</h2>
-    </div>
-  );
-}
-
-function Section({ title, formOpen, toggleForm, onSubmit, children }) {
-  return (
-    <>
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6">{title}</h1>
-
-      <button
-        onClick={toggleForm}
-        className="bg-white text-black px-4 py-2 rounded mb-6"
-      >
-        {formOpen ? "Close Form" : `Add ${title}`}
-      </button>
-
-      {formOpen && (
-        <form onSubmit={onSubmit} className="space-y-4 mb-8">
-          {children}
-          <button className="bg-white text-black px-4 py-2 rounded">
-            Submit
-          </button>
-        </form>
-      )}
-    </>
   );
 }

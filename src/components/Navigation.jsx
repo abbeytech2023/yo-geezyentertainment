@@ -10,8 +10,6 @@ export default function Navbar() {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
-  console.log(checkIfAdmin());
-
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Blogs", href: "/blogs" },
