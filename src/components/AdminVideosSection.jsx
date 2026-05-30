@@ -10,17 +10,16 @@ export default function AdminVideosSection({
   addVideo,
 }) {
   const { register, handleSubmit, reset } = useForm();
-  const { createVideo } = useAddVideo();
+  const { createVideo, loading } = useAddVideo();
 
   const onSubmit = async (data) => {
     // await addVideo(data);
     const link = toYoutubeEmbed(data.youtubeLinks);
     // console.log(data.youtubeLinks);
 
-    console.log(link);
     createVideo({ ...data, youtubeLinks: data.youtubeLinks });
 
-    // reset(); // clear form
+    reset(); // clear form
     // setVideoFormOpen(false);
   };
 
@@ -28,6 +27,7 @@ export default function AdminVideosSection({
     <div>
       {active === "videos" && (
         <Section
+          isLoading={loading}
           title="Videos"
           formOpen={videoFormOpen}
           toggleForm={() => setVideoFormOpen(!videoFormOpen)}
