@@ -4,6 +4,7 @@ import { FaTrash, FaBars } from "react-icons/fa";
 import UserList from "../components/UserList";
 import { useUsers } from "../hooks/useUsers";
 import { StatCard } from "../components/StatCard";
+import { useAddBlog } from "../hooks/useAddBlog";
 import AdminMusicSections from "../components/AdminMusicSections";
 import AdminBlogsSection from "../components/AdminBlogsSection";
 import AdminVideosSection from "../components/AdminVideosSection";
@@ -12,6 +13,8 @@ export default function Admin() {
   const [active, setActive] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { users } = useUsers();
+  const { addBlog, isAdding, error } = useAddBlog();
+  // console.log(error);
 
   // BLOGS
   const [blogs, setBlogs] = useState([]);
@@ -40,14 +43,6 @@ export default function Admin() {
   ]);
   const [videoFormOpen, setVideoFormOpen] = useState(false);
   const [videoForm, setVideoForm] = useState({ title: "", link: "" });
-
-  const addBlog = (e) => {
-    e.preventDefault();
-    setBlogs([{ id: Date.now(), ...blogForm }, ...blogs]);
-
-    setBlogForm({ title: "", content: "" });
-    setBlogFormOpen(false);
-  };
 
   const addMusic = (e) => {
     e.preventDefault();
@@ -121,7 +116,6 @@ export default function Admin() {
           blogFormOpen={blogFormOpen}
           setBlogFormOpen={setBlogFormOpen}
           setBlogForm={setBlogForm}
-          addBlog={addBlog}
         />
         {/* MUSIC */}
         <AdminMusicSections

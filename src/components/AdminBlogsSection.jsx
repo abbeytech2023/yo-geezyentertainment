@@ -1,14 +1,26 @@
 import React from "react";
 import { Section } from "./AdminSections";
+import { useForm } from "react-hook-form";
+import { useAddBlog } from "../hooks/useAddBlog";
 
 export default function AdminBlogsSection({
   active,
-  blogForm,
   blogFormOpen,
   setBlogFormOpen,
-  addBlog,
-  setBlogForm,
 }) {
+  const { register, handleSubmit, reset } = useForm();
+
+  const { addBlog, isAdding } = useAddBlog();
+
+  const onSubmit = (data) => {
+    addBlog(data, {
+      onSuccess: () => {
+        reset();
+        setBlogFormOpen(false);
+      },
+    });
+  };
+
   return (
     <div>
       {active === "blogs" && (
@@ -16,26 +28,23 @@ export default function AdminBlogsSection({
           title="Blogs"
           formOpen={blogFormOpen}
           toggleForm={() => setBlogFormOpen(!blogFormOpen)}
-          onSubmit={addBlog}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <input
             type="text"
             placeholder="Blog Title"
-            value={blogForm.title}
-            onChange={(e) =>
-              setBlogForm({ ...blogForm, title: e.target.value })
-            }
+            {...register("blogsTitle", {
+              required: "Blog title is required",
+            })}
             className="w-full p-3 bg-zinc-800 rounded"
-            required
           />
+
           <textarea
             placeholder="Blog Content"
-            value={blogForm.content}
-            onChange={(e) =>
-              setBlogForm({ ...blogForm, content: e.target.value })
-            }
+            {...register("blogsNews", {
+              required: "Blog content is required",
+            })}
             className="w-full p-3 bg-zinc-800 rounded"
-            required
           />
         </Section>
       )}

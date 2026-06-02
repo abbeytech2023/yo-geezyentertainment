@@ -55,3 +55,35 @@ export const addVideo = async (video) => {
 
   return data[0];
 };
+
+// services/blogService.js
+
+export async function createBlog(data) {
+  console.log(data);
+
+  const { data: blog, error } = await supabase
+    .from("blogs")
+    .insert([data])
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return blog;
+}
+
+//FETCHING ALL BLOGS
+export async function getBlogs() {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

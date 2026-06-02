@@ -17,7 +17,6 @@ export default function AdminMusicSections({
     createMusic({ ...data, links: data.links });
 
     reset(); // clear form after submit
-    // setMusicFormOpen(false);
   };
 
   return (
