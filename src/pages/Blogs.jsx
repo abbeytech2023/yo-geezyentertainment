@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDeleteBlog } from "../hooks/useDeleteBlog";
-import { useFetchBlogs } from "../hooks/useFetchBlogs";
+// import { useFetchBlogs } from "../hooks/useFetchBlogs";
 import { Link } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
 
 export default function MusicNewsPage() {
-  const { blogs } = useFetchBlogs();
+  // const { blogs } = useFetchBlogs();
   const { removeBlog, isLoading } = useDeleteBlog();
 
   const [openModal, setOpenModal] = useState(false);
@@ -39,7 +39,7 @@ export default function MusicNewsPage() {
         </h1>
 
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogs.map((news) => (
+          {/* {blogs.map((news) => (
             <div
               key={news.id}
               className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
@@ -71,7 +71,7 @@ export default function MusicNewsPage() {
                 </button>
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
 
