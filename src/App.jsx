@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Navigation from "./components/Navigation";
 import SupportPage from "./pages/Support";
 import Blogs from "./pages/Blogs";
+import BlogDetails from "./pages/BlogDetails";
 import Skits from "./pages/Skits";
 import Footer from "./components/Footer";
 import PWAInstall from "./components/PwaInstall";
@@ -31,6 +32,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blog/:id" element={<BlogDetails />} />
             <Route path="/skits" element={<Skits />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
@@ -61,7 +63,7 @@ export default function App() {
           },
         }}
       />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

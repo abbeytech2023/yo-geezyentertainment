@@ -87,3 +87,28 @@ export async function getBlogs() {
 
   return data;
 }
+
+// FETCH SINGLE BLOGS
+
+export async function getBlogById(id) {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+//DELETE BLOGS
+export async function deleteBlog(id) {
+  const { data, error } = await supabase.from("blogs").delete().eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

@@ -44,7 +44,7 @@ export default function AdminBlogsSection({
             {...register("blogsNews", {
               required: "Blog content is required",
             })}
-            className="w-full p-3 bg-zinc-800 rounded"
+            className="w-full p-3 bg-zinc-800 rounded h-64"
           />
         </Section>
       )}
