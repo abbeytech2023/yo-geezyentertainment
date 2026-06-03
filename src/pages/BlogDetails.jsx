@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useBlog } from "../hooks/useFetchBlogs";
+import { useBlog } from "../hooks/useFetchAllBlog";
 
 export default function BlogDetails() {
   const { id } = useParams();
