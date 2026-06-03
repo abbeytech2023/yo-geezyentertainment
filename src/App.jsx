@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
 import Navigation from "./components/Navigation";
 import SupportPage from "./pages/Support";
-import Blogs from "./pages/Blogs";
+// import Blogs from "./pages/Blogs";
 import BlogDetails from "./pages/BlogDetails";
 import Skits from "./pages/Skits";
 import Footer from "./components/Footer";
@@ -31,7 +31,7 @@ export default function App() {
           <Navigation />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/blogs" element={<Blogs />} />
+            {/* <Route path="/blogs" element={<Blogs />} /> */}
             <Route path="/blog/:id" element={<BlogDetails />} />
             <Route path="/skits" element={<Skits />} />
             <Route path="/login" element={<Login />} />
