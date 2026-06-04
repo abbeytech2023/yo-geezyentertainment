@@ -7,6 +7,7 @@ import Blogs from "./pages/Blogs";
 import BlogDetails from "./pages/BlogDetails";
 import Skits from "./pages/Skits";
 import Footer from "./components/Footer";
+import AdminRoute from "./components/AdminRoute";
 import PWAInstall from "./components/PwaInstall";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -15,12 +16,13 @@ import AdminDashboard from "./pages/AdminDashboard";
 // Context
 
 import { useAuthContext } from "./hooks/useAuthContext";
-import { useEffect } from "react";
 import { Spinner } from "./components/Spinner";
 import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
-  const { authIsReady } = useAuthContext();
+  const { authIsReady, user } = useAuthContext();
+
+  console.log(user);
 
   return (
     <>
@@ -35,6 +37,9 @@ export default function App() {
             <Route path="/blog/:id" element={<BlogDetails />} />
             <Route path="/skits" element={<Skits />} />
             <Route path="/login" element={<Login />} />
+            <Route element={<AdminRoute user={user} />}>
+              <Route path="/admin" element={<AdminDashboard />} />
+            </Route>
             <Route path="/signup" element={<Signup />} />
             <Route path="/support" element={<SupportPage />} />
             <Route path="/admin" element={<AdminDashboard />} />

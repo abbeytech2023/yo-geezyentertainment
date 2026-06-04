@@ -3,12 +3,14 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import useLogout from "../hooks/useLogout";
-import { checkIfAdmin } from "../services/auth";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { logout } = useLogout();
+
   const { user } = useAuthContext();
+  const { logout } = useLogout();
+
+  const admin = user?.email === "yogeezyentertainment@gmail.com";
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -16,35 +18,47 @@ export default function Navbar() {
     { name: "Skits", href: "/skits" },
     { name: "Support", href: "/support" },
 
-    { name: "Admin", href: "/admin", requiresAuth: true },
-    { name: "Login", href: "/login", guestOnly: true },
-    { name: "Signup", href: "/signup", guestOnly: true },
+    // Only visible to admin
+    ...(admin ? [{ name: "Admin", href: "/admin" }] : []),
 
-    // 👇 Logout as a link
-    { name: "Logout", requiresAuth: true, action: logout },
+    // Guest links
+    ...(!user
+      ? [
+          { name: "Login", href: "/login" },
+          { name: "Signup", href: "/signup" },
+        ]
+      : []),
+
+    // Authenticated users
+    ...(user
+      ? [
+          {
+            name: "Logout",
+            action: logout,
+          },
+        ]
+      : []),
   ];
 
-  const filteredLinks = navLinks.filter((link) => {
-    if (link.requiresAuth && !user) return false;
-    if (link.guestOnly && user) return false;
-    return true;
-  });
-
   return (
-    <nav className="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-md text-white z-99 border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold tracking-widest">
+    <nav className="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-md text-white z-50 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="text-2xl font-bold tracking-widest hover:text-purple-400 transition"
+        >
           YO GEEZY
         </Link>
 
-        {/* Desktop */}
-        <ul className="hidden md:flex gap-8 text-sm cursor-pointer uppercase tracking-wide">
-          {filteredLinks.map((link) => (
-            <li key={link.name} className="cursor-pointer uppercase">
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex items-center gap-8 text-sm uppercase tracking-wide">
+          {navLinks.map((link) => (
+            <li key={link.name}>
               {link.action ? (
                 <button
                   onClick={link.action}
-                  className="hover:text-red-500 cursor-pointer transition uppercase"
+                  className="hover:text-red-500 transition cursor-pointer"
                 >
                   {link.name}
                 </button>
@@ -60,19 +74,21 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile Button */}
-        <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
-          </button>
-        </div>
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden"
+          aria-label="Toggle Menu"
+        >
+          {isOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+        </button>
       </div>
 
-      {/* Mobile */}
+      {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden bg-black border-t border-white/10">
           <ul className="flex flex-col items-center gap-6 py-6 text-sm uppercase tracking-wide">
-            {filteredLinks.map((link) => (
+            {navLinks.map((link) => (
               <li key={link.name}>
                 {link.action ? (
                   <button
@@ -80,7 +96,7 @@ export default function Navbar() {
                       link.action();
                       setIsOpen(false);
                     }}
-                    className="hover:text-red-500 transition uppercase"
+                    className="hover:text-red-500 transition uppercase cursor-pointer"
                   >
                     {link.name}
                   </button>

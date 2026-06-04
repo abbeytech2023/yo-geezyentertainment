@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -5,7 +6,10 @@ import { useLogin } from "../hooks/useLogin";
 import SpinnerMini from "../components/SpinnerMini";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const { login, isPending, errMessage } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -13,9 +17,6 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = ({ email, password }) => {
-    console.log(email, password);
-    console.log(errMessage);
-
     login({ email, password });
   };
 
@@ -38,34 +39,47 @@ export default function Login() {
               })}
               $error={errors.email}
             />
+
             {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
           </InputGroup>
 
           <InputGroup>
-            <Input
-              type="password"
-              placeholder="Password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              $error={errors.password}
-            />
+            <PasswordWrapper>
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                $error={errors.password}
+              />
+
+              <EyeButton
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </EyeButton>
+            </PasswordWrapper>
+
             {errors.password && (
               <ErrorText>{errors.password.message}</ErrorText>
             )}
           </InputGroup>
 
-          <Button type="submit" disabled={isSubmitting}>
+          {errMessage && <ServerError>{errMessage}</ServerError>}
+
+          <Button type="submit" disabled={isSubmitting || isPending}>
             {isPending ? <SpinnerMini /> : "Login"}
           </Button>
         </Form>
 
         <FooterText>
-          Don’t have an account? <StyledLink to="/signup">Sign up</StyledLink>
+          Don't have an account? <StyledLink to="/signup">Sign up</StyledLink>
         </FooterText>
       </Card>
     </Container>
@@ -117,12 +131,17 @@ const InputGroup = styled.div`
   flex-direction: column;
 `;
 
+const PasswordWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 const Input = styled.input`
-  padding: 12px 14px;
+  width: 100%;
+  padding: 12px 50px 12px 14px;
   border-radius: 8px;
   border: 1px solid ${(props) => (props.$error ? "#ef4444" : "#000")};
   background: white;
-  /* color: #000; */
   font-size: 14px;
   outline: none;
   transition: all 0.3s ease;
@@ -137,10 +156,34 @@ const Input = styled.input`
   }
 `;
 
+const EyeButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const ErrorText = styled.p`
   color: #ef4444;
   font-size: 13px;
   margin-top: 4px;
+`;
+
+const ServerError = styled.p`
+  color: #ef4444;
+  text-align: center;
+  font-size: 14px;
 `;
 
 const Button = styled.button`
@@ -179,88 +222,3 @@ const StyledLink = styled(Link)`
     text-decoration: underline;
   }
 `;
-
-// import { useState } from "react";
-// import supabase from "../lib/supabaseClients";
-
-// export default function Login() {
-//   const [form, setForm] = useState({
-//     email: "",
-//     password: "",
-//   });
-
-//   const [error, setError] = useState(null);
-//   const [loading, setLoading] = useState(false);
-
-//   const handleChange = (e) => {
-//     setForm((prev) => ({
-//       ...prev,
-//       [e.target.name]: e.target.value,
-//     }));
-//   };
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     setLoading(true);
-//     setError(null);
-
-//     const { data, error } = await supabase.auth.signInWithPassword({
-//       email: form.email,
-//       password: form.password,
-//     });
-
-//     if (error) {
-//       setError(error.message);
-//       setLoading(false);
-//       return;
-//     }
-
-//     console.log("User:", data.user);
-//     console.log("Session:", data.session);
-
-//     setLoading(false);
-//     // Redirect here if needed
-//     // navigate("/dashboard");
-//   };
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen">
-//       <form
-//         onSubmit={handleLogin}
-//         className="w-full max-w-md p-6 bg-white rounded-lg shadow"
-//       >
-//         <h2 className="text-2xl font-bold mb-4">Login</h2>
-
-//         {error && <p className="mb-3 text-red-500 text-sm">{error}</p>}
-
-//         <input
-//           type="email"
-//           name="email"
-//           placeholder="Email"
-//           value={form.email}
-//           onChange={handleChange}
-//           required
-//           className="w-full mb-3 p-2 border rounded"
-//         />
-
-//         <input
-//           type="password"
-//           name="password"
-//           placeholder="Password"
-//           value={form.password}
-//           onChange={handleChange}
-//           required
-//           className="w-full mb-4 p-2 border rounded"
-//         />
-
-//         <button
-//           type="submit"
-//           disabled={loading}
-//           className="w-full bg-black text-white py-2 rounded"
-//         >
-//           {loading ? "Logging in..." : "Login"}
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }

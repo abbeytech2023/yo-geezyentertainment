@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDeleteBlog } from "../hooks/useDeleteBlog";
 import { useFetchBlogs } from "../hooks/useFetchAllBlog";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
 
@@ -9,6 +10,10 @@ export default function MusicNewsPage() {
   const { blogs } = useFetchBlogs();
   const [openModal, setOpenModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+
+  const { user } = useAuthContext();
+
+  const admin = user?.email === "yogeezyentertainment@gmail.com";
 
   const openDeleteModal = (id) => {
     setSelectedId(id);
@@ -77,12 +82,14 @@ export default function MusicNewsPage() {
       </div>
 
       {/* DELETE MODAL */}
-      <DeleteModal
-        isOpen={openModal}
-        onClose={closeDeleteModal}
-        onConfirm={confirmDelete}
-        loading={isLoading}
-      />
+      {admin && (
+        <DeleteModal
+          isOpen={openModal}
+          onClose={closeDeleteModal}
+          onConfirm={confirmDelete}
+          loading={isLoading}
+        />
+      )}
     </div>
   );
 }
