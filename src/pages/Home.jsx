@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import MusicSection from "../components/MusicSection";
 import { useAuthContext } from "../hooks/useAuthContext";
-import supabase from "../lib/supabaseClients";
+import { Spinner } from "../components/Spinner";
 
 import React from "react";
 
