@@ -5,6 +5,7 @@ import { toYoutubeEmbed } from "../hooks/useYoutubeEmbed";
 
 export default function VideoSlider({ videos }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  console.log(videos);
 
   const prevSlide = () =>
     setCurrentIndex((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
@@ -13,6 +14,8 @@ export default function VideoSlider({ videos }) {
     setCurrentIndex((prev) => (prev === videos.length - 1 ? 0 : prev + 1));
 
   const currentVideo = videos[currentIndex];
+  console.log(currentVideo);
+
   const currentVideoLink = toYoutubeEmbed(currentVideo?.youtubeLinks);
 
   return (

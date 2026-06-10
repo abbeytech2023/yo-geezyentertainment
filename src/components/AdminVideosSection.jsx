@@ -16,6 +16,7 @@ export default function AdminVideosSection({
     // await addVideo(data);
     const link = toYoutubeEmbed(data.youtubeLinks);
     // console.log(data.youtubeLinks);
+    // console.log(data);
 
     createVideo({ ...data, youtubeLinks: data.youtubeLinks });
 

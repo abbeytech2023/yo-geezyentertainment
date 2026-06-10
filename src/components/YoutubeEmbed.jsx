@@ -5,8 +5,9 @@ export default function YouTubeEmbed({ videoLink }) {
         className="absolute top-0 left-0 w-full h-full"
         src={videoLink}
         title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-      ></iframe>
+      />
     </div>
   );
 }

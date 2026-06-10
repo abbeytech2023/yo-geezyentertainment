@@ -112,3 +112,50 @@ export async function deleteBlog(id) {
 
   return data;
 }
+
+// services/apiSkits.js
+
+export async function createSkitVideo(skitData) {
+  const { data, error } = await supabase
+    .from("skitVideos")
+    .insert([skitData])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Skit video could not be created");
+  }
+
+  return data;
+}
+
+export async function getSkitVideos() {
+  const { data, error } = await supabase
+    .from("skitVideos")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    throw new Error("Skit videos could not be loaded");
+  }
+
+  return data;
+}
+
+// services/musicService.js
+
+export async function deleteMusic(id) {
+  const { data, error } = await supabase
+    .from("musicLinks")
+    .delete()
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

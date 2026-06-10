@@ -45,39 +45,52 @@ export default function MusicNewsPage() {
         </h1>
 
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogs.map((news) => (
-            <div
-              key={news.id}
-              className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
-            >
-              <h3 className="text-purple-800 font-semibold text-lg mb-1">
-                {news.artist}
-              </h3>
-
-              <h2 className="font-bold text-xl mb-2">{news.blogsTitle}</h2>
-
-              <p className="text-gray-600 mb-4">
-                {news.blogsNews?.slice(0, 100)}
-                {news.blogsNews?.length > 100 && "..."}
+          {blogs?.length === 0 ? (
+            <div className="col-span-full text-center py-16">
+              <h2 className="text-2xl font-semibold text-gray-500">
+                No blogs yet
+              </h2>
+              <p className="text-gray-400 mt-2">
+                Check back later for the latest music news.
               </p>
-
-              <div className="flex items-center justify-between gap-3">
-                <Link
-                  to={`/blog/${news.id}`}
-                  className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors"
-                >
-                  Read More
-                </Link>
-
-                <button
-                  onClick={() => openDeleteModal(news.id)}
-                  className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
-                >
-                  Delete
-                </button>
-              </div>
             </div>
-          ))}
+          ) : (
+            blogs.map((news) => (
+              <div
+                key={news.id}
+                className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
+              >
+                <h3 className="text-purple-800 font-semibold text-lg mb-1">
+                  {news.artist}
+                </h3>
+
+                <h2 className="font-bold text-xl mb-2">{news.blogsTitle}</h2>
+
+                <p className="text-gray-600 mb-4">
+                  {news.blogsNews?.slice(0, 100)}
+                  {news.blogsNews?.length > 100 && "..."}
+                </p>
+
+                <div className="flex items-center justify-between gap-3">
+                  <Link
+                    to={`/blog/${news.id}`}
+                    className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors"
+                  >
+                    Read More
+                  </Link>
+
+                  {admin && (
+                    <button
+                      onClick={() => openDeleteModal(news.id)}
+                      className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+                    >
+                      Delete
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 

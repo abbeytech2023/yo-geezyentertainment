@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FaMusic,
   FaVideo,
   FaNewspaper,
   FaTachometerAlt,
-  FaTrash,
-  FaBars,
   FaTimes,
   FaUser,
+  FaTheaterMasks,
 } from "react-icons/fa";
 
 export default function SideBar({
@@ -25,6 +24,7 @@ export default function SideBar({
       >
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold">Admin Panel</h2>
+
           <button className="md:hidden" onClick={() => setSidebarOpen(false)}>
             <FaTimes />
           </button>
@@ -37,10 +37,31 @@ export default function SideBar({
               icon: <FaTachometerAlt />,
               label: "Dashboard",
             },
-            { name: "blogs", icon: <FaNewspaper />, label: "Blogs" },
-            { name: "music", icon: <FaMusic />, label: "Music" },
-            { name: "videos", icon: <FaVideo />, label: "Videos" },
-            { name: "users", icon: <FaUser />, label: "users" },
+            {
+              name: "blogs",
+              icon: <FaNewspaper />,
+              label: "Blogs",
+            },
+            {
+              name: "music",
+              icon: <FaMusic />,
+              label: "Music",
+            },
+            {
+              name: "videos",
+              icon: <FaVideo />,
+              label: "Videos",
+            },
+            {
+              name: "skits",
+              icon: <FaTheaterMasks />,
+              label: "Skits",
+            },
+            {
+              name: "users",
+              icon: <FaUser />,
+              label: "Users",
+            },
           ].map((item) => (
             <button
               key={item.name}
@@ -52,7 +73,8 @@ export default function SideBar({
                 active === item.name ? "bg-zinc-800" : ""
               }`}
             >
-              {item.icon} {item.label}
+              {item.icon}
+              {item.label}
             </button>
           ))}
         </div>
