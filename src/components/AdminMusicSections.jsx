@@ -91,35 +91,74 @@ export default function AdminMusicSections({
 
       {/* MUSIC LIST */}
       <div className="mt-10">
-        <h2 className="text-2xl font-bold mb-6">All Music ({music.length})</h2>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold">All Music</h2>
 
+          <span className="text-sm text-zinc-400 bg-zinc-900 px-3 py-1 rounded-full border border-zinc-800">
+            {music.length} tracks
+          </span>
+        </div>
+
+        {/* States */}
         {isLoadingMusic ? (
-          <p className="text-zinc-400">Loading music...</p>
+          <div className="text-zinc-400 bg-zinc-900 border border-zinc-800 rounded-lg p-6 text-center">
+            Loading music...
+          </div>
         ) : music.length === 0 ? (
-          <p className="text-zinc-400">No music uploaded yet.</p>
+          <div className="text-zinc-400 bg-zinc-900 border border-zinc-800 rounded-lg p-6 text-center">
+            No music uploaded yet.
+          </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {music.map((song) => (
               <div
                 key={song.id}
-                className="bg-zinc-900 border border-zinc-800 rounded-lg p-5 flex justify-between items-center"
+                className="
+            group
+            bg-zinc-900
+            border border-zinc-800
+            rounded-xl
+            p-4 sm:p-5
+            flex flex-col sm:flex-row
+            sm:items-center sm:justify-between
+            gap-4
+            transition-all duration-200
+            hover:border-zinc-700
+            hover:bg-zinc-850
+          "
               >
-                <div>
-                  <h3 className="text-lg font-semibold">{song.title}</h3>
+                {/* Left content */}
+                <div className="min-w-0">
+                  <h3 className="text-base sm:text-lg font-semibold text-white truncate">
+                    {song.title}
+                  </h3>
 
-                  <p className="text-zinc-400">
-                    {song.links?.length > 50
-                      ? `${song.links.slice(0, 50)}...`
-                      : song.links}
+                  <p className="text-xs text-zinc-500 mt-1">
+                    Click action on the right to manage this track
                   </p>
                 </div>
 
-                <button
-                  onClick={() => openDeleteModal(song.id)}
-                  className="text-red-500 hover:text-red-400"
-                >
-                  <FaTrash size={18} />
-                </button>
+                {/* Right action */}
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <button
+                    onClick={() => openDeleteModal(song.id)}
+                    className="
+                flex items-center gap-2
+                text-red-500
+                hover:text-red-400
+                bg-red-500/10 hover:bg-red-500/20
+                border border-red-500/20
+                px-3 py-2
+                rounded-lg
+                transition
+                active:scale-95
+              "
+                  >
+                    <FaTrash size={16} />
+                    <span className="text-sm hidden sm:inline">Delete</span>
+                  </button>
+                </div>
               </div>
             ))}
           </div>

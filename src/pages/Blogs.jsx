@@ -41,7 +41,7 @@ export default function MusicNewsPage() {
     <div className="bg-gray-100 min-h-screen py-8 mt-14">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-8 text-purple-700">
-          Latest Music News
+          Latest News
         </h1>
 
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -78,31 +78,12 @@ export default function MusicNewsPage() {
                   >
                     Read More
                   </Link>
-
-                  {admin && (
-                    <button
-                      onClick={() => openDeleteModal(news.id)}
-                      className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
-                    >
-                      Delete
-                    </button>
-                  )}
                 </div>
               </div>
             ))
           )}
         </div>
       </div>
-
-      {/* DELETE MODAL */}
-      {admin && (
-        <DeleteModal
-          isOpen={openModal}
-          onClose={closeDeleteModal}
-          onConfirm={confirmDelete}
-          loading={isLoading}
-        />
-      )}
     </div>
   );
 }
