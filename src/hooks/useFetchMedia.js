@@ -34,6 +34,7 @@ export function useFetchMusic() {
 
   return { music, loading, error };
 }
+
 export function useFetchVideos() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -67,3 +68,43 @@ export function useFetchVideos() {
 
   return { videos, loading, error };
 }
+
+// export function useFetchSkitVideo() {
+//   const [skitVideos, setSkitVideos] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   // Function to fetch all skit videos
+//   const fetchSkitVideos = useCallback(async () => {
+//     setLoading(true);
+//     setError(null);
+
+//     try {
+//       const { data, error } = await supabase
+//         .from("skitVideo")
+//         .select("*")
+//         .order("id", { ascending: false }); // newest first
+
+//       if (error) throw error;
+
+//       setSkitVideos(data || []);
+//     } catch (err) {
+//       console.error("Error fetching skit videos:", err);
+//       setError(err.message || "Something went wrong");
+//     } finally {
+//       setLoading(false);
+//     }
+//   }, []);
+
+//   // Auto fetch on mount
+//   useEffect(() => {
+//     fetchSkitVideos();
+//   }, [fetchSkitVideos]);
+
+//   return {
+//     skitVideos,
+//     loading,
+//     error,
+//     refetch: fetchSkitVideos,
+//   };
+// }

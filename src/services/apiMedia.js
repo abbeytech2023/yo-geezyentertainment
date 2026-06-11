@@ -174,3 +174,18 @@ export async function deleteVideo(id) {
 
   return data;
 }
+// services/musicService.js
+
+export async function deleteSkitVideo(id) {
+  const { data, error } = await supabase
+    .from("skitVideos")
+    .delete()
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
